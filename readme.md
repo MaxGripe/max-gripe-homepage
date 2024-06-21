@@ -12,23 +12,23 @@ Welcome to my [homepage](https://max.gripe/)! It serves as a platform for me to 
 
 - The deployment process is fully automated using [GitHub Actions](https://github.com/features/actions). Any changes to this repository are immediately reflected on the live site.
 
-## Repository Structure
+## Folder structure
 
 - `src/`: Contains the source code for the site, including the F# scripts and Markdown content.
   - `HtmlGenerator/`: The F# project that handles the generation of HTML from Markdown.
   - `markdown/`: Directory containing the Markdown files for articles and other content.
   - `partials/`: Contains reusable HTML snippets like `header.inc` and `footer.inc`.
-  - `output/`: Directory where the generated HTML files are stored.
+  - `output/`: Directory that will be created during the build process, with the generated HTML files.
 - `README.md`: This file.
 - `LICENSE`: License file for the project.
 
-## How It Works
+## How it works
 
 When I write an article in Markdown and place it in the `src/markdown/` folder, the rest happens automatically. GitHub Actions detects changes pushed to the repository, triggers the build process, and deploys the updated site to Azure Static Web Apps.
 
 ## Contributing
 
-Feel free to open issues or submit pull requests if you have suggestions or improvements for the site. Contributions are always welcome!
+Feel free to open issues or submit pull requests if you have suggestions or improvements for the site. Contributions are always welcome! 😁
 
 ## License
 
