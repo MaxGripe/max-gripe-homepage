@@ -10,10 +10,16 @@ let readFile (path: string) =
 
 let writeFile (path: string) (content: string) = File.WriteAllText(path, content)
 
+let toUrlFriendly (input: string) =
+    input.ToLowerInvariant()
+    |> fun text -> System.Text.RegularExpressions.Regex.Replace(text, @"[^\w\s]", "") // Remove all non-alphanumeric characters
+    |> fun text -> System.Text.RegularExpressions.Regex.Replace(text, @"\s+", "-") // Replace spaces with hyphens
+
+
 let generateHtml (header: string) (footer: string) (content: string) (title: string) =
     $"""
     <!DOCTYPE html>
-    <html lang="en">
+    <html lang="en" color-mode="user">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,17 +27,28 @@ let generateHtml (header: string) (footer: string) (content: string) (title: str
         <title>{title}</title>
     </head>
     <body>
-        {header}
+        <header>
+            {header}
+        </header>
         <main>
             {content}
         </main>
-        {footer}
+        <hr />
+        <footer>
+            {footer}
+        </footer>
     </body>
     </html>
     """
 
 let generateHtmlFromMarkdown (header: string) (footer: string) (filePath: string) (outputDir: string) =
-    let fileName = Path.GetFileNameWithoutExtension(filePath)
+    let title =
+        File.ReadAllLines(filePath)
+        |> Array.tryFind (fun line -> line.StartsWith("# "))
+        |> Option.defaultValue "# No Title"
+        |> fun title -> title.TrimStart('#').Trim()
+
+    let fileName = toUrlFriendly (title)
     let outputFilePath = Path.Combine(outputDir, fileName + ".html")
     let markdownContent = File.ReadAllText(filePath)
     let htmlContent = Markdown.ToHtml(markdownContent)
@@ -115,9 +132,11 @@ let main argv =
                 |> Option.defaultValue "# No Title"
                 |> fun title -> title.TrimStart('#').Trim()
 
-            (date, title, $"{date}.html"))
+            let urlFriendlyTitle = toUrlFriendly (title)
+            (date, title, $"{urlFriendlyTitle}.html"))
         |> Array.sortByDescending (fun (date, _, _) -> date)
         |> Array.toList
+
 
     generateIndexPage header footer articles outputDir
 

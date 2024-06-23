@@ -1,4 +1,1 @@
-<hr />
-<FOOTER>
-    <p>Author: Max Gripe</p>
-</FOOTER>
+<small>Author: Max Gripe</small>
