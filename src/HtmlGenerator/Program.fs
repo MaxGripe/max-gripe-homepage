@@ -49,16 +49,15 @@ let generateHtmlFromMarkdown (header: string) (footer: string) (filePath: string
         |> Option.defaultValue "# No Title"
         |> fun title -> title.TrimStart('#').Trim()
 
-    let urlFriendlyTitle = toUrlFriendly (title)
-
-    let outputFilePath =
-        Path.Combine(
-            outputDir,
+    let urlFriendlyTitle =
+        if System.Char.IsDigit(fileNameWithoutExtension.[0]) then
             fileNameWithoutExtension
             + "-"
-            + urlFriendlyTitle
-            + ".html"
-        )
+            + toUrlFriendly (title)
+        else
+            fileNameWithoutExtension
+
+    let outputFilePath = Path.Combine(outputDir, urlFriendlyTitle + ".html")
 
     let markdownContent = File.ReadAllText(filePath)
     let htmlContent = Markdown.ToHtml(markdownContent)
@@ -155,9 +154,7 @@ let main argv =
 
     let otherFiles =
         markdownFiles
-        |> Array.filter (fun file ->
-            Path.GetFileName(file) = "links.md"
-            || Path.GetFileName(file) = "featured.md")
+        |> Array.filter (fun file -> not (System.Char.IsDigit(Path.GetFileName(file).[0])))
         |> Array.iter (fun file -> generateHtmlFromMarkdown header footer file outputDir)
 
     0
