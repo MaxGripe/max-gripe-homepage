@@ -15,7 +15,6 @@ let toUrlFriendly (input: string) =
     |> fun text -> System.Text.RegularExpressions.Regex.Replace(text, @"[^\w\s]", "") // Remove all non-alphanumeric characters
     |> fun text -> System.Text.RegularExpressions.Regex.Replace(text, @"\s+", "-") // Replace spaces with hyphens
 
-
 let generateHtml (header: string) (footer: string) (content: string) (title: string) =
     $"""
     <!DOCTYPE html>
@@ -42,17 +41,28 @@ let generateHtml (header: string) (footer: string) (content: string) (title: str
     """
 
 let generateHtmlFromMarkdown (header: string) (footer: string) (filePath: string) (outputDir: string) =
+    let fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath)
+
     let title =
         File.ReadAllLines(filePath)
         |> Array.tryFind (fun line -> line.StartsWith("# "))
         |> Option.defaultValue "# No Title"
         |> fun title -> title.TrimStart('#').Trim()
 
-    let fileName = toUrlFriendly (title)
-    let outputFilePath = Path.Combine(outputDir, fileName + ".html")
+    let urlFriendlyTitle = toUrlFriendly (title)
+
+    let outputFilePath =
+        Path.Combine(
+            outputDir,
+            fileNameWithoutExtension
+            + "-"
+            + urlFriendlyTitle
+            + ".html"
+        )
+
     let markdownContent = File.ReadAllText(filePath)
     let htmlContent = Markdown.ToHtml(markdownContent)
-    let fullHtmlContent = generateHtml header footer htmlContent fileName
+    let fullHtmlContent = generateHtml header footer htmlContent title
 
     printfn "Generating %s" outputFilePath
     writeFile outputFilePath fullHtmlContent
@@ -133,16 +143,15 @@ let main argv =
                 |> fun title -> title.TrimStart('#').Trim()
 
             let urlFriendlyTitle = toUrlFriendly (title)
-            (date, title, $"{urlFriendlyTitle}.html"))
+            let link = $"{date}-{urlFriendlyTitle}.html"
+            (date, title, link))
         |> Array.sortByDescending (fun (date, _, _) -> date)
         |> Array.toList
-
 
     generateIndexPage header footer articles outputDir
 
     articleFiles
     |> Array.iter (fun file -> generateHtmlFromMarkdown header footer file outputDir)
-
 
     let otherFiles =
         markdownFiles
@@ -150,6 +159,5 @@ let main argv =
             Path.GetFileName(file) = "links.md"
             || Path.GetFileName(file) = "featured.md")
         |> Array.iter (fun file -> generateHtmlFromMarkdown header footer file outputDir)
-
 
     0
