@@ -1,5 +1,6 @@
 
-[![Azure Static Web Apps CI/CD](https://github.com/MaxGripe/max-gripe-homepage/actions/workflows/main.yml/badge.svg)](https://github.com/MaxGripe/max-gripe-homepage/actions/workflows/main.yml)
+[![Azure Static Web Apps CI/CD](https://github.com/MaxGripe/max-gripe-homepage/actions/workflows/main.yml/badge.svg)](https://github.com/MaxGripe/max-gripe-homepage/actions/workflows/main.yml) ![GitHub repo size](https://img.shields.io/github/repo-size/MaxGripe/max-gripe-homepage)
+
 
 # Max Gripe's Homepage
 Welcome to my [homepage](https://max.gripe/)! It serves as a platform for me to share my links and thoughts.

@@ -15,6 +15,7 @@ let toUrlFriendly (input: string) =
     |> fun text -> System.Text.RegularExpressions.Regex.Replace(text, @"[^\w\s]", "") // Remove all non-alphanumeric characters
     |> fun text -> System.Text.RegularExpressions.Regex.Replace(text, @"\s+", "-") // Replace spaces with hyphens
 
+
 let generateHtml (header: string) (footer: string) (content: string) (title: string) =
     $"""
     <!DOCTYPE html>
@@ -41,27 +42,17 @@ let generateHtml (header: string) (footer: string) (content: string) (title: str
     """
 
 let generateHtmlFromMarkdown (header: string) (footer: string) (filePath: string) (outputDir: string) =
-    let fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath)
-
     let title =
         File.ReadAllLines(filePath)
         |> Array.tryFind (fun line -> line.StartsWith("# "))
         |> Option.defaultValue "# No Title"
         |> fun title -> title.TrimStart('#').Trim()
 
-    let urlFriendlyTitle =
-        if System.Char.IsDigit(fileNameWithoutExtension.[0]) then
-            fileNameWithoutExtension
-            + "-"
-            + toUrlFriendly (title)
-        else
-            fileNameWithoutExtension
-
-    let outputFilePath = Path.Combine(outputDir, urlFriendlyTitle + ".html")
-
+    let fileName = toUrlFriendly (title)
+    let outputFilePath = Path.Combine(outputDir, fileName + ".html")
     let markdownContent = File.ReadAllText(filePath)
     let htmlContent = Markdown.ToHtml(markdownContent)
-    let fullHtmlContent = generateHtml header footer htmlContent title
+    let fullHtmlContent = generateHtml header footer htmlContent fileName
 
     printfn "Generating %s" outputFilePath
     writeFile outputFilePath fullHtmlContent
@@ -126,9 +117,14 @@ let main argv =
 
     let markdownFiles = Directory.GetFiles(markdownDir, "*.md")
 
+    let isArticle (file: string) =
+        System.Char.IsDigit(Path.GetFileName(file).[0])
+
     let articleFiles =
         markdownFiles
-        |> Array.filter (fun file -> System.Char.IsDigit(Path.GetFileName(file).[0]))
+        |> Array.filter (fun file -> isArticle (file))
+
+
 
     let articles =
         articleFiles
@@ -142,19 +138,19 @@ let main argv =
                 |> fun title -> title.TrimStart('#').Trim()
 
             let urlFriendlyTitle = toUrlFriendly (title)
-            let link = $"{date}-{urlFriendlyTitle}.html"
-            (date, title, link))
+            (date, title, $"{urlFriendlyTitle}.html"))
         |> Array.sortByDescending (fun (date, _, _) -> date)
         |> Array.toList
+
 
     generateIndexPage header footer articles outputDir
 
     articleFiles
     |> Array.iter (fun file -> generateHtmlFromMarkdown header footer file outputDir)
 
-    let otherFiles =
-        markdownFiles
-        |> Array.filter (fun file -> not (System.Char.IsDigit(Path.GetFileName(file).[0])))
-        |> Array.iter (fun file -> generateHtmlFromMarkdown header footer file outputDir)
+    markdownFiles
+    |> Array.filter (fun file -> not (isArticle (file)))
+    |> Array.iter (fun file -> generateHtmlFromMarkdown header footer file outputDir)
+
 
     0
