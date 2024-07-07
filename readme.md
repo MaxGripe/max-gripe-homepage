@@ -21,6 +21,7 @@ Welcome to my [homepage](https://max.gripe/)! It serves as a platform for me to 
 
   - `css/`: CSS file for the site.
   - `markdown/`: Directory containing the Markdown files for articles and other content. Articles are identified by the presence of a digit (date) in the file name.
+    - `images/`:  Images used in the articles.
   - `partials/`: Reusable HTML snippets like `header.inc` and `footer.inc`.
   - `output/`: Directory that will be created during the build process, with the generated HTML files.
 - `HtmlGenerator.fsproj`: Project file
