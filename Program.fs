@@ -90,14 +90,17 @@ let createPage (header: string) (footer: string) (markdownFilePath: string) =
         | true ->
             let date = Path.GetFileNameWithoutExtension(markdownFilePath)
 
+            let publicationDate =
+                $"""<p class="publication-date">Published on <time datetime="{date}">{date}</time></p>"""
+
+            let giscus = diskUtils.readFile (Path.Combine(Constants.partialsDir, "giscus.inc"))
+
             Markdown.ToHtml(
                 markdownContent
                 + "\n\n"
-                + "<p class=\"publication-date\">Published on <time datetime=\""
-                + date
-                + "\">"
-                + date
-                + "</time></p>"
+                + publicationDate
+                + "\n\n"
+                + giscus
             )
 
     let finalHtmlContent =
