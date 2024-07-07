@@ -27,5 +27,5 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.DEPLOY_BANANA_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: upload
-          app_location: "src/HtmlGenerator/output" 
+          app_location: "output" 
           output_location: ""

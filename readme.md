@@ -15,17 +15,27 @@ Welcome to my [homepage](https://max.gripe/)! It serves as a platform for me to 
 
 ## Folder structure
 
-- `src/`: Contains the source code for the site, including the F# scripts and Markdown content.
-  - `HtmlGenerator/`: The F# project that handles the generation of HTML from Markdown.
-  - `markdown/`: Directory containing the Markdown files for articles and other content.
-  - `partials/`: Contains reusable HTML snippets like `header.inc` and `footer.inc`.
+- `/`: Root directory of the project.
+
+  - `.github/workflows/`: GitHub Actions workflow file.
+
+  - `css/`: CSS file for the site.
+  - `markdown/`: Directory containing the Markdown files for articles and other content. Articles are identified by the presence of a digit (date) in the file name.
+  - `partials/`: Reusable HTML snippets like `header.inc` and `footer.inc`.
   - `output/`: Directory that will be created during the build process, with the generated HTML files.
+- `HtmlGenerator.fsproj`: Project file
+
+- `LICENSE`: License file for the project.  
+
+- `Program.fs`: F# program that handles the generation of HTML from Markdown 
+
 - `README.md`: This file.
-- `LICENSE`: License file for the project.
+
+
 
 ## How it works
 
-When I write an article in Markdown and place it in the `src/markdown/` folder, the rest happens automatically. GitHub Actions detects changes pushed to the repository, triggers the build process, and deploys the updated site to Azure Static Web Apps.
+When I write an article in Markdown and place it in the `/markdown/` folder, the rest happens automatically. GitHub Actions detects changes pushed to the repository, triggers the build process, and deploys the updated site to Azure Static Web Apps.
 
 ## Contributing
 
