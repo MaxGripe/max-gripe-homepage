@@ -10,6 +10,10 @@ module Constants =
     let imagesDir = Path.Combine(markdownDir, "images")
     let outputImagesDir = Path.Combine(outputDir, "images")
 
+    let cssDir = Path.Combine(sourceDir, "css")
+
+    let fontDir = Path.Combine(sourceDir, "font")
+
 module diskUtils =
 
     let readFile (path: string) =
@@ -21,19 +25,16 @@ module diskUtils =
 
     let writeFile (path: string) (content: string) = File.WriteAllText(path, content)
 
-    let copyCss () =
-        let cssSourceDir = Path.Combine(Constants.sourceDir, "css")
-        let cssDestinationDir = Constants.outputDir
+    let copyFilesToOutput (sourceDir: string) (searchPattern: string) =
+        let files = Directory.GetFiles(sourceDir, searchPattern)
 
-        let cssFiles = Directory.GetFiles(cssSourceDir, "*.css")
+        files
+        |> Array.iter (fun file ->
+            let fileName = Path.GetFileName(file)
+            let destinationPath = Path.Combine(Constants.outputDir, fileName)
+            File.Copy(file, destinationPath, true))
 
-        cssFiles
-        |> Array.iter (fun cssFile ->
-            let fileName = Path.GetFileName(cssFile)
-            let destinationPath = Path.Combine(cssDestinationDir, fileName)
-            File.Copy(cssFile, destinationPath, true))
-
-    let copyImages () =
+    let copyImagesToOutput () =
         if not (Directory.Exists(Constants.outputImagesDir)) then
             Directory.CreateDirectory(Constants.outputImagesDir)
             |> ignore
@@ -43,6 +44,7 @@ module diskUtils =
             let fileName = Path.GetFileName(file)
             let destFile = Path.Combine(Constants.outputImagesDir, fileName)
             File.Copy(file, destFile, true))
+
 
 
 module urlUtils =
@@ -191,7 +193,9 @@ let main argv =
     createIndexPage header footer listOfAllArticles
     createArticlePages ()
     createOtherPages ()
-    diskUtils.copyCss ()
-    diskUtils.copyImages ()
+
+    diskUtils.copyFilesToOutput Constants.fontDir "*.woff2"
+    diskUtils.copyFilesToOutput Constants.cssDir "*.css"
+    diskUtils.copyImagesToOutput ()
 
     0
