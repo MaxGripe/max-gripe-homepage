@@ -123,7 +123,7 @@ let createIndexPage (header: string) (footer: string) (listOfAllArticles: (strin
         $"""
     {indexContent}
     <section class="publications">
-        <h1>listOfAllArticles</h1>
+        <h1>Articles</h1>
         <ul>
         {listOfAllArticlesContent}
         </ul>
