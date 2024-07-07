@@ -22,11 +22,16 @@ module diskUtils =
     let writeFile (path: string) (content: string) = File.WriteAllText(path, content)
 
     let copyCss () =
-        let cssSourcePath = Path.Combine(Constants.sourceDir, "css", "styles.css")
-        let cssDestinationPath = Path.Combine(Constants.outputDir, "styles.css")
+        let cssSourceDir = Path.Combine(Constants.sourceDir, "css")
+        let cssDestinationDir = Constants.outputDir
 
-        if File.Exists(cssSourcePath) then
-            File.Copy(cssSourcePath, cssDestinationPath, true)
+        let cssFiles = Directory.GetFiles(cssSourceDir, "*.css")
+
+        cssFiles
+        |> Array.iter (fun cssFile ->
+            let fileName = Path.GetFileName(cssFile)
+            let destinationPath = Path.Combine(cssDestinationDir, fileName)
+            File.Copy(cssFile, destinationPath, true))
 
     let copyImages () =
         if not (Directory.Exists(Constants.outputImagesDir)) then
