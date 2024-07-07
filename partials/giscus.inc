@@ -8,7 +8,7 @@
         data-reactions-enabled="1"
         data-emit-metadata="0"
         data-input-position="bottom"
-        data-theme="https://max.gripe/giscus.css"
+        data-theme="dark_dimmed"
         data-lang="en"
         crossorigin="anonymous"
         async>
