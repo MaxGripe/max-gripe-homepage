@@ -1,15 +1,15 @@
 # Featured
 
-In this section, I will showcase my various interesting projects and artistic works.
+Here are some of my projects and artistic works.
 
 ## 2024-07: [0Password](https://0password.github.io/)
-Deterministic password generator that creates unique, secure passwords using a master password and parameters. It doesn't store passwords. Instead, it regenerates them as needed.
+Deterministic password generator designed to create unique and secure passwords using a master key and specific parameters. Unlike traditional methods, it doesn't store any data but regenerates the credentials on demand.
 
-![0Password](https://0password.github.io/favicon/apple-touch-icon.png)
+[![0Password](https://0password.github.io/favicon/apple-touch-icon.png)](https://0password.github.io/)
 
-The application is hosted on GitHub Pages:
+Application:
 https://0password.github.io/
 
-Source code is available also on GitHub:
+Source code:
 https://github.com/0Password/
 
