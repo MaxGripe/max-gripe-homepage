@@ -4,11 +4,11 @@
         data-category="Article Comments"
         data-category-id="DIC_kwDOMMEg0M4Cgod0"
         data-mapping="pathname"
-        data-strict="0"
+        data-strict="1"
         data-reactions-enabled="0"
         data-emit-metadata="0"
         data-input-position="bottom"
-        data-theme="https://max.gripe/giscus.css"
+        data-theme="dark_dimmed"
         data-lang="en"
         crossorigin="anonymous"
         async>
