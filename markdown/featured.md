@@ -1,18 +1,15 @@
 # Featured
 
-And this place will contain the featured projects.
+In this section, I will showcase my various interesting projects and artistic works.
 
-Bullet lists nested within numbered list:
+## 2024-07: [0Password](https://0password.github.io/)
+Deterministic password generator that creates unique, secure passwords using a master password and parameters. It doesn't store passwords. Instead, it regenerates them as needed.
 
-  1. fruits
-     * apple
-     * banana
-  2. vegetables
-     - carrot
-     - broccoli
+![0Password](https://0password.github.io/favicon//apple-touch-icon.png)
 
-Text attributes _italic_, **bold**, `monospace`.
+The application is hosted on GitHub Pages:
+[https://0password.github.io/](https://0password.github.io/)
 
-Horizontal rule:
+Source code is available also on GitHub:
+[https://github.com/0Password/](https://github.com/0Password/)
 
----     
