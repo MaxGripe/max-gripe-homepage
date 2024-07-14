@@ -1,1 +1,1 @@
-<small>Author: Max Gripe</small>
+<small>Generated using markdown and F# | Hosted on Azure with Continuous Deployment (CD) | <a href="https://github.com/MaxGripe/max-gripe-homepage" target="_blank">Site repository</a> on GitHub</small>
