@@ -120,7 +120,7 @@ let createPage (header: string) (footer: string) (markdownFilePath: string) =
             )
 
     let finalHtmlContent =
-        generateFinalHtml header footer htmlContent ("Max Gripe - " + title)
+        generateFinalHtml header footer htmlContent ("Max Gripe 1982 - " + title)
 
     diskUtils.writeFile outputMarkdownFilePath finalHtmlContent
 
@@ -149,7 +149,7 @@ let createIndexPage (header: string) (footer: string) (listOfAllArticles: (strin
     </section>
     """
 
-    let finalHtmlContent = generateFinalHtml header footer content "Max Gripe"
+    let finalHtmlContent = generateFinalHtml header footer content "Max Gripe 1982"
     let outputMarkdownFilePath = Path.Combine(Constants.outputDir, "index.html")
     diskUtils.writeFile outputMarkdownFilePath finalHtmlContent
 
