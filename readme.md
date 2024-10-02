@@ -44,6 +44,6 @@ Feel free to open issues or submit pull requests if you have suggestions or impr
 
 ## License
 
-This project is licensed under the terms of the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+This project is licensed under the terms of the [Unlicense](https://en.wikipedia.org/wiki/Unlicense).
 
 
