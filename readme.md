@@ -1,6 +1,10 @@
 
-[![Azure Static Web Apps CI/CD](https://github.com/MaxGripe/max-gripe-homepage/actions/workflows/main.yml/badge.svg)](https://github.com/MaxGripe/max-gripe-homepage/actions/workflows/main.yml) ![GitHub repo size](https://img.shields.io/github/repo-size/MaxGripe/max-gripe-homepage)
-
+[![Azure Static Web Apps CI/CD](https://github.com/MaxGripe/max-gripe-homepage/actions/workflows/main.yml/badge.svg)](https://github.com/MaxGripe/max-gripe-homepage/actions/workflows/main.yml)
+![GitHub repo size](https://img.shields.io/github/repo-size/MaxGripe/max-gripe-homepage)
+![GitHub License](https://img.shields.io/github/license/MaxGripe/max-gripe-homepage)
+![GitHub Created At](https://img.shields.io/github/created-at/MaxGripe/max-gripe-homepage)
+![GitHub forks](https://img.shields.io/github/forks/MaxGripe/max-gripe-homepage)
+![GitHub Repo stars](https://img.shields.io/github/stars/MaxGripe/max-gripe-homepage)
 
 # Max Gripe's Homepage
 Welcome to my [homepage](https://max.gripe/)! It serves as a platform for me to share my links and thoughts.
